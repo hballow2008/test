@@ -1,0 +1,86 @@
+// js/api.js
+const API_URL = 'http://localhost:5000';
+
+const api = {
+    // Get all notes
+    getNotes: async () => {
+        try {
+            const response = await fetch(`${API_URL}/notes`);
+            if (!response.ok) throw new Error('Failed to fetch notes');
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching notes:', error);
+            throw error;
+        }
+    },
+
+    // Get single note
+    getNote: async (id) => {
+        try {
+            const response = await fetch(`${API_URL}/notes/${id}`);
+            if (!response.ok) throw new Error('Failed to fetch note');
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching note:', error);
+            throw error;
+        }
+    },
+
+    // Create note - VULNERABLE: No sanitization
+    createNote: async (title, content, role) => {
+        try {
+            const response = await fetch(`${API_URL}/notes`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, content, role })
+            });
+            if (!response.ok) throw new Error('Failed to create note');
+            return await response.json();
+        } catch (error) {
+            console.error('Error creating note:', error);
+            throw error;
+        }
+    },
+
+    // Update note - VULNERABLE: No authorization check
+    updateNote: async (id, title, content) => {
+        try {
+            const response = await fetch(`${API_URL}/notes/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, content })
+            });
+            if (!response.ok) throw new Error('Failed to update note');
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating note:', error);
+            throw error;
+        }
+    },
+
+    // Delete note - VULNERABLE: No authorization check
+    deleteNote: async (id) => {
+        try {
+            const response = await fetch(`${API_URL}/notes/${id}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) throw new Error('Failed to delete note');
+            return await response.json();
+        } catch (error) {
+            console.error('Error deleting note:', error);
+            throw error;
+        }
+    },
+
+    // Search notes - VULNERABLE: SQL injection possible
+    searchNotes: async (query) => {
+        try {
+            const response = await fetch(`${API_URL}/notes/search/${query}`);
+            if (!response.ok) throw new Error('Search failed');
+            return await response.json();
+        } catch (error) {
+            console.error('Error searching notes:', error);
+            throw error;
+        }
+    }
+};
