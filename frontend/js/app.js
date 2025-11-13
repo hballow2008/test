@@ -30,13 +30,13 @@ function updateRoleUI() {
     if (currentRole === 'user') {
         userBtn.classList.add('active');
         guestBtn.classList.remove('active');
-        roleMessage.innerHTML = '✅ <strong>User Mode:</strong> You can create, edit, and delete notes.';
+        roleMessage.innerHTML = '<strong>User Mode:</strong> You can create, edit, and delete notes.';
         roleInfo.className = 'role-info user';
         createSection.style.display = 'block';
     } else {
         userBtn.classList.remove('active');
         guestBtn.classList.add('active');
-        roleMessage.innerHTML = '👁️ <strong>Guest Mode:</strong> You can only view notes (read-only).';
+        roleMessage.innerHTML = '<strong>Guest Mode:</strong> You can only view notes (read-only).';
         roleInfo.className = 'role-info guest';
         createSection.style.display = 'none';
     }
@@ -44,7 +44,6 @@ function updateRoleUI() {
     // Re-render notes to update action buttons
     renderNotes(allNotes);
 }
-
 // Load all notes
 async function loadNotes() {
     try {
@@ -74,8 +73,8 @@ function renderNotes(notes) {
                 <h3>${note.title}</h3>
                 ${currentRole === 'user' ? `
                     <div class="note-actions">
-                        <button class="btn-edit" onclick="editNote(${note.id})">✏️ Edit</button>
-                        <button class="btn-delete" onclick="deleteNote(${note.id})">🗑️ Delete</button>
+                        <button class="btn-edit" onclick="editNote(${note.id})">Edit</button>
+                        <button class="btn-delete" onclick="deleteNote(${note.id})">Delete</button>
                     </div>
                 ` : ''}
             </div>
@@ -94,7 +93,7 @@ function renderNotes(notes) {
 function toggleForm() {
     const noteForm = document.getElementById('noteForm');
     noteForm.classList.toggle('hidden');
-    
+   
     if (!noteForm.classList.contains('hidden')) {
         document.getElementById('noteTitle').focus();
     }
@@ -115,18 +114,18 @@ async function saveNote() {
         if (editNoteId) {
             // Update existing note
             await api.updateNote(editNoteId, title, content);
-            alert('✅ Note updated successfully!');
+            alert('Note updated successfully!');
         } else {
             // Create new note - VULNERABLE: No sanitization, XSS possible
             await api.createNote(title, content, currentRole);
-            alert('✅ Note created successfully!');
+            alert('Note created successfully!');
         }
 
         // Reset form and reload
         cancelEdit();
         loadNotes();
     } catch (error) {
-        alert('❌ Error saving note: ' + error.message);
+        alert('Error saving note: ' + error.message);
     }
 }
 
@@ -145,7 +144,7 @@ async function editNote(noteId) {
         document.getElementById('noteForm').classList.remove('hidden');
         document.getElementById('noteTitle').focus();
     } catch (error) {
-        alert('❌ Error loading note: ' + error.message);
+        alert('Error loading note: ' + error.message);
     }
 }
 
@@ -157,10 +156,10 @@ async function deleteNote(noteId) {
 
     try {
         await api.deleteNote(noteId);
-        alert('✅ Note deleted successfully!');
+        alert('Note deleted successfully!');
         loadNotes();
     } catch (error) {
-        alert('❌ Error deleting note: ' + error.message);
+        alert('Error deleting note: ' + error.message);
     }
 }
 

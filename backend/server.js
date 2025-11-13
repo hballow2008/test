@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
-const PORT = 5000;
+const PORT = 5001;
 
 // Middleware
 app.use(cors());
@@ -136,15 +136,29 @@ app.get('/api/notes/search/:query', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log('⚠️  WARNING: This server has intentional security vulnerabilities!');
-});
-
-process.on('SIGINT', () => {
-  db.close((err) => {
-    if (err) console.error('Error closing database:', err);
-    console.log('Database connection closed');
-    process.exit(0);
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Notes API Server',
+    status: 'running',
+    endpoints: {
+      notes: '/api/notes',
+      search: '/api/notes/search/:query',
+      note: '/api/notes/:id'
+    }
   });
 });
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+  });
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://localhost:${PORT}`);
+// });
+
+// process.on('SIGINT', () => {
+//   db.close((err) => {
+//     if (err) console.error('Error closing database:', err);
+//     console.log('Database connection closed');
+//     process.exit(0);
+//   });
+// });

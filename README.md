@@ -1,8 +1,6 @@
-# Notes App - Vanilla JavaScript
+# Notes App 
 
-⚠️ **WARNING**: This application contains intentional security vulnerabilities for educational purposes!
-
-## 🚀 Setup
+## Setup
 
 ### Backend
 ```bash
@@ -29,22 +27,3 @@ Or use Live Server in VS Code.
 ### Guest Mode
 - View notes only (read-only)
 - Search notes
-
-## 🔐 Vulnerabilities Included
-
-1. SQL Injection
-2. XSS (Cross-Site Scripting)
-3. No input validation
-4. IDOR
-5. No authorization checks
-6. No CSRF protection
-
-## 🧪 Test Vulnerabilities
-
-Try these in search: `' OR 1=1 --`
-
-Try this in note title: `<script>alert('XSS')</script>`
-
-## 📚 Your Task
-
-Fix all security vulnerabilities!

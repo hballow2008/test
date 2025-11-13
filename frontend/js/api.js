@@ -1,5 +1,5 @@
 // js/api.js
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://localhost:5001/api';
 
 const api = {
     // Get all notes
