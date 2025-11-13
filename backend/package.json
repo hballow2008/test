@@ -1,13 +1,13 @@
 {
     "name": "notes-app-vanilla-backend",
     "version": "1.0.0",
-    "description": "Backend for Vanilla JS Notes App - Intentionally vulnerable",
+    "description": "Backend for Vanilla JS Notes App ",
     "main": "server.js",
     "scripts": {
       "start": "node server.js",
       "dev": "nodemon server.js"
     },
-    "keywords": ["notes", "vulnerable", "security", "practice"],
+    "keywords": ["notes", "security", "practice"],
     "author": "",
     "license": "ISC",
     "dependencies": {
